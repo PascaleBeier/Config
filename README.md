@@ -6,8 +6,8 @@
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![PSR 2][ico-psr2]#]
-[![PSR 4][ico-psr4]#]
+![PSR 2][ico-psr2]
+![PSR 4][ico-psr4]
 
 Simple Configuration. If you think Symfony/YAML is an overkill or you prefer using .php files. 
 Organize your Application Configuration like `config/app.php`.
