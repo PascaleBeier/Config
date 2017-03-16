@@ -7,38 +7,58 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-**Note:** Replace ```Pascale Beier``` ```PascaleBeier``` ```https://github.com/PascaleBeier``` ```mail@pascalebeier.de``` ```PascaleBeier``` ```Config``` ```Laravel-esque Config Helper Class``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line. You can run `$ php prefill.php` in the command line to make all replacements at once. Delete the file prefill.php as well.
-
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
-
-## Structure
-
-If any of the following are applicable to your project, then the directory structure should follow industry best practises by being named the following.
-
-```
-bin/        
-config/
-src/
-tests/
-vendor/
-```
-
+Simple Configuration. If you think Symfony/YAML is an overkill or you prefer using .php files. 
+Organize your Application Configuration like `config/app.php`.
 
 ## Install
 
 Via Composer
 
 ``` bash
-$ composer require PascaleBeier/Config
+$ composer require pascaleBeier/config
 ```
 
 ## Usage
 
 ``` php
-$skeleton = new PascaleBeier\Config();
-echo $skeleton->echoPhrase('Hello, League!');
+// config/app.php
+// return a key => value array
+
+<?php
+
+return [
+    'url' => 'awesome.app',
+];
+
 ```
+
+``` php
+// somewhere.php
+// In the real world you would want to bind a configured Config Class Instance to your container or singleton
+
+<?php
+
+$config = new PascaleBeier\Config();
+$config->setPath(__DIR__ . '/../config');
+
+echo $config->get('app.url'); // 'awesome.app'
+echo $config->get('app.url', 'production.app'); // 'awesome.app'
+echo $config->get('app.name', 'Awesome App'); // 'Awesome App'
+
+```
+
+## API
+
+### `get(string $key, string|null $default = null)`
+
+`get('app.name')` looks for `app.php` in the configured path and returns the value of the key `name`.
+Returns the default parameter if the key is not found.
+
+Yeah, pretty inspired by Laravel.
+
+### `has(string $key)`
+
+`has('app.name')` checks if the key `name` exists in `app.php`. Just a convenience wrapper around `array_key_exists()`.
 
 ## Change log
 
@@ -70,7 +90,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/PascaleBeier/Config.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/PascaleBeier/Config/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/PascaleBeier/Config.svg?style=flat-square
+[ico-scrutinizer]: https://scrutinizer-ci.com/g/PascaleBeier/Config/?branch=master
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/PascaleBeier/Config.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/PascaleBeier/Config.svg?style=flat-square
 
