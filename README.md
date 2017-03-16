@@ -6,9 +6,13 @@
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
+[![PSR 2][ico-psr2]#]
+[![PSR 4][ico-psr4]#]
 
 Simple Configuration. If you think Symfony/YAML is an overkill or you prefer using .php files. 
 Organize your Application Configuration like `config/app.php`.
+
+Tested for PHP 5.6, PHP 7.0 and PHP 7.1, implementing PSR-2 and PSR-4.
 
 ## Install
 
@@ -90,9 +94,11 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/PascaleBeier/Config.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/PascaleBeier/Config/master.svg?style=flat-square
-[ico-scrutinizer]: https://scrutinizer-ci.com/g/PascaleBeier/Config/?branch=master
+[ico-scrutinizer]: https://scrutinizer-ci.com/g/PascaleBeier/Config/badges/coverage.png?b=master
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/PascaleBeier/Config.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/PascaleBeier/Config.svg?style=flat-square
+[ico-psr2]: https://img.shields.io/badge/psr-2-brightgreen.svg
+[ico-psr4]: https://img.shields.io/badge/psr-4-brightgreen.svg
 
 [link-packagist]: https://packagist.org/packages/PascaleBeier/Config
 [link-travis]: https://travis-ci.org/PascaleBeier/Config

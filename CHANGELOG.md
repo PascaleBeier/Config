@@ -21,6 +21,25 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+## 1.0.3
+
+### Added
+- Added PHP Compat. Notice
+- Added PSR Compat. Notice
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Code Coverage
+
+### Removed
+- Nothing
+
+### Security
+- Nothing
+
+
 ## 1.0.2
 
 ### Added
