@@ -42,14 +42,16 @@ return [
 
 <?php
 
-$config = new PascaleBeier\Config();
-$config->setPath(__DIR__ . '/../config');
+$config = new PascaleBeier\Config(__DIR__.'/../config/');
+$config->load();
 
 echo $config->get('app.url'); // 'awesome.app'
 echo $config->get('app.url', 'production.app'); // 'awesome.app'
 echo $config->get('app.name', 'Awesome App'); // 'Awesome App'
 
 ```
+
+*Starting with v2.0.0 you can organize your arrays multidimensional.*
 
 ## API
 

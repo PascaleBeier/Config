@@ -21,6 +21,55 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+## 2.0.0
+
+### Added
+- You can now recursively search your config files, for example:
+
+```php
+
+// config/app.php
+<?php
+
+return [
+    'name' => 'foo',
+    'software' => [
+        'version' => 'v2.0',
+    ],
+];
+````
+
+```php
+<?php
+
+$config->get('app.software.version') // v2.0 
+```
+
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Nothing
+
+### Removed
+- Public API for instantiation has changed to this:
+
+```php
+
+<?php
+
+$config = new PascaleBeier\Config(__DIR__.'/../config');
+$config->load();
+```
+
+- Exceptions have been removed - I found them to be an overhead
+- StringFormatter has been replaced by ArrayHelper
+- Removed PR and Issue Templates
+
+### Security
+- Nothing
+
 ## 1.0.4
 
 ### Added

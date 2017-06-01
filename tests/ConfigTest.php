@@ -13,38 +13,48 @@ class ConfigTest extends TestCase
 
     public function setUp()
     {
-        $this->config = new Config();
-
-        touch('foo.php');
-        file_put_contents('foo.php', '<?php return [\'bar\' => \'baz\'];');
+        $this->config = new Config(__DIR__.'/config/');
+        $this->config->load();
     }
 
-    public function testCanSetAndGetPath()
+    public function testCanLoad()
     {
-        $expected = 'foo';
-        $this->config->setPath('foo');
-
-        $this->assertEquals($expected, $this->config->getPath());
-    }
-
-    public function testCanOpen()
-    {
-        $expected = ['bar' => 'baz'];
-        $actual = $this->config->open('foo');
+        $expected = [
+            'app' => [
+                'name' => 'foo',
+                'software' => [
+                    'version' => 'v2.0',
+                ],
+            ],
+            'database' => [
+                'host' => 'localhost',
+            ],
+        ];
+        $actual = $this->config->getConfig();
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testCanGet()
     {
-        $expected = 'baz';
-        $actual = $this->config->get('foo.bar');
+        $expected = 'foo';
+        $actual = $this->config->get('app.name');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testCanGetRecursive()
+    {
+        $expected = 'v2.0';
+        $actual = $this->config->get('app.software.version');
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testCanGetDefault()
     {
+        $this->config->load();
+
         $expected = 'Karsten';
         $actual = $this->config->get('foo.baz', 'Karsten');
 
@@ -53,15 +63,8 @@ class ConfigTest extends TestCase
 
     public function testHas()
     {
-        $condition = $this->config->has('foo.bar');
+        $condition = $this->config->has('app.name');
 
         $this->assertTrue($condition);
-    }
-
-    public function tearDown()
-    {
-        if (file_exists('foo.php')) {
-            unlink('foo.php');
-        }
     }
 }

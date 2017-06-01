@@ -4,27 +4,28 @@ namespace PascaleBeier\Config;
 
 class Config
 {
+    /** @var string */
     protected $path;
+    /** @var array */
+    protected $config = [];
 
-    /**
-     * @param mixed $path
-     */
-    public function setPath($path)
+    public function __construct($path = __DIR__.'/config/')
     {
         $this->path = $path;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPath()
+    public function load()
     {
-        return $this->path;
+        foreach (new \FilesystemIterator($this->path) as $file) {
+            if ($file->getExtension() === 'php') {
+                $this->config[$file->getBasename('.php')] = include $file;
+            }
+        }
     }
 
-    public function open($file)
+    public function getConfig()
     {
-        return File::open($this->path . $file .'.php');
+        return $this->config;
     }
 
     /**
@@ -33,23 +34,11 @@ class Config
      */
     public function has($key)
     {
-        $formattedString = StringFormatter::format($key);
-        $file = $this->open($formattedString[0]);
-
-        return array_key_exists($formattedString[1], $file);
+        return ArrayHelper::path($this->config, $key) !== null;
     }
 
     public function get($key, $default = null)
     {
-        $formattedString = StringFormatter::format($key);
-        $file = $this->open($formattedString[0]);
-
-        $value = $default;
-
-        if (isset($file[$formattedString[1]])) {
-            $value = $file[$formattedString[1]];
-        }
-
-        return $value;
+        return ArrayHelper::path($this->config, $key, $default);
     }
 }
