@@ -21,6 +21,25 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+## 2.0.1
+
+### Added
+- ConfigInterface
+- Some Real World Example
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Wrong FQN Namespace in the README, thanks to (/u/yanickl88)[https://www.reddit.com/user/yannickl88]
+
+### Removed
+- Nothing
+
+### Security
+- Nothing
+
+
 ## 2.0.0
 
 ### Added

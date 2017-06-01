@@ -24,6 +24,55 @@ $ composer require pascaleBeier/config
 
 ## Usage
 
+This tiny library simplifies working with configurational arrays. 
+Usually, an Application has something like a 'config' directory with .php files returning arrays.
+
+A real-world example might be Database Credentials: In that case, you would create a database.php file containing the following:
+
+```php
+// config/database.php
+
+<?php
+
+return [
+	'hostname' => 'localhost',
+	'username' => 'user',
+	'password' => 'secret',
+	'database' => 'app'
+];
+```
+
+Using PascaleBeier\Config\Config you can easily retrieve anything stored in these arrays. (You can even nest those. Like super deep.)
+
+You might be thinking of a tiny DatabaseConnection Class:
+
+
+```php
+// src/DatabaseConnection.php
+<?php
+
+class DatabaseConnection
+{
+	protected $config;
+
+	protected $pdo;
+
+	public function __construct(PascaleBeier\Config\Config $config)
+	{
+		$this->config = $config;
+	}
+
+	public function connect()
+	{
+		$dsn = sprintf('mysql:host=%s;dbname=%s', $this->config->get('database.hostname'), $this->config->get('database.name')); 
+		$this->pdo = new PDO($dsn, $this->config->get('database.username'), $this->config->get('database.password'));
+	}
+}
+```
+
+In the following, I'll give a brief overview of the API:
+
+
 ``` php
 // config/app.php
 // return a key => value array
@@ -42,13 +91,15 @@ return [
 
 <?php
 
-$config = new PascaleBeier\Config(__DIR__.'/../config/');
+$config = new PascaleBeier\Config\Config(__DIR__.'/../config/');
 $config->load();
 
 echo $config->get('app.url'); // 'awesome.app'
 echo $config->get('app.url', 'production.app'); // 'awesome.app'
 echo $config->get('app.name', 'Awesome App'); // 'Awesome App'
 
+echo $config->has('app.bla'); // false
+echo $config->has('app.url'); // true
 ```
 
 *Starting with v2.0.0 you can organize your arrays multidimensional.*
@@ -62,9 +113,12 @@ Returns the default parameter if the key is not found.
 
 Yeah, pretty inspired by Laravel.
 
+You can even try ('app.abstract.foo.bar.baz.factory'), which will look after ['app']['abstract']['foo']['bar']['baz']['factory'].
+
+
 ### `has(string $key)`
 
-`has('app.name')` checks if the key `name` exists in `app.php`. Just a convenience wrapper around `array_key_exists()`.
+`has('app.name')` checks if the key `name` exists in `app.php`. Think about it between the lines of `array_key_exists()`. (But recursive)
 
 ## Change log
 
