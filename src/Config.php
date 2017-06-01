@@ -101,5 +101,4 @@ class Config implements ConfigInterface
     {
         $this->delimiter = $delimiter;
     }
-
 }

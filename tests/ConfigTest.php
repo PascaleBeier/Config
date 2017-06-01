@@ -101,5 +101,4 @@ class ConfigTest extends TestCase
             self::EXISTING_VALUE
         );
     }
-
 }
