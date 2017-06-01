@@ -28,7 +28,7 @@ interface ConfigInterface
 
     /**
      * See get(). Check if a given string path
-     * can be found.
+     * can be found - if not, return false.
      *
      * @param  string $key will be sought after
      * @return boolean     true if found, false otherwise

@@ -11,6 +11,11 @@ class ConfigTest extends TestCase
      */
     public $config;
 
+    const EXISTING_PATH = 'app.software.version';
+    const EXISTING_VALUE = 'v2.0';
+    const NOT_EXISTING_PATH = 'foo.bar.baz.factory';
+    const DEFAULT_VALUE = 'default';
+
     public function setUp()
     {
         $this->config = new Config(__DIR__.'/config/');
@@ -37,34 +42,26 @@ class ConfigTest extends TestCase
 
     public function testCanGet()
     {
-        $expected = 'foo';
-        $actual = $this->config->get('app.name');
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testCanGetRecursive()
-    {
-        $expected = 'v2.0';
-        $actual = $this->config->get('app.software.version');
-
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($this->config->get(self::EXISTING_PATH), self::EXISTING_VALUE);
     }
 
     public function testCanGetDefault()
     {
-        $this->config->load();
+        $this->assertEquals(
+            $this->config->get(self::NOT_EXISTING_PATH, self::DEFAULT_VALUE),
+            self::DEFAULT_VALUE
+        );
+    }
 
-        $expected = 'Karsten';
-        $actual = $this->config->get('foo.baz', 'Karsten');
-
-        $this->assertEquals($expected, $actual);
+    public function testGetShouldReturnNull()
+    {
+        $this->assertNull(
+            $this->config->get(self::NOT_EXISTING_PATH)
+        );
     }
 
     public function testHas()
     {
-        $condition = $this->config->has('app.name');
-
-        $this->assertTrue($condition);
+        $this->assertTrue($this->config->has(self::EXISTING_PATH));
     }
 }
