@@ -22,6 +22,41 @@ Via Composer
 $ composer require pascaleBeier/config
 ```
 
+## Example
+
+In the following, I'll give a brief overview of the API:
+
+
+``` php
+// config/app.php
+// return a key => value array
+
+<?php
+
+return [
+    'url' => 'awesome.app',
+];
+
+```
+
+``` php
+// somewhere.php
+// In the real world you would want to bind a configured Config Class Instance to your container or singleton
+
+<?php
+
+$config = new PascaleBeier\Config\Config(__DIR__.'/../config/');
+
+echo $config->get('app.url'); // 'awesome.app'
+echo $config->get('app.url', 'production.app'); // 'awesome.app'
+echo $config->get('app.name', 'Awesome App'); // 'Awesome App'
+
+echo $config->has('app.bla'); // false
+echo $config->has('app.url'); // true
+```
+
+You can even use whitespace or change the '.' delimiter to something else! Read the API below.
+
 ## Usage
 
 This tiny library simplifies working with configurational arrays. 
@@ -57,9 +92,9 @@ class DatabaseConnection
 
 	protected $pdo;
 
-	public function __construct(PascaleBeier\Config\Config $config)
+	public function __construct()
 	{
-		$this->config = $config;
+		$this->config = new \PascaleBeier\Config\Config(__DIR__.'/../config/');
 	}
 
 	public function connect()
@@ -68,38 +103,6 @@ class DatabaseConnection
 		$this->pdo = new PDO($dsn, $this->config->get('database.username'), $this->config->get('database.password'));
 	}
 }
-```
-
-In the following, I'll give a brief overview of the API:
-
-
-``` php
-// config/app.php
-// return a key => value array
-
-<?php
-
-return [
-    'url' => 'awesome.app',
-];
-
-```
-
-``` php
-// somewhere.php
-// In the real world you would want to bind a configured Config Class Instance to your container or singleton
-
-<?php
-
-$config = new PascaleBeier\Config\Config(__DIR__.'/../config/');
-$config->load();
-
-echo $config->get('app.url'); // 'awesome.app'
-echo $config->get('app.url', 'production.app'); // 'awesome.app'
-echo $config->get('app.name', 'Awesome App'); // 'Awesome App'
-
-echo $config->has('app.bla'); // false
-echo $config->has('app.url'); // true
 ```
 
 *Starting with v2.0.0 you can organize your arrays multidimensional.*
@@ -116,9 +119,27 @@ Yeah, pretty inspired by Laravel.
 You can even try ('app.abstract.foo.bar.baz.factory'), which will look after ['app']['abstract']['foo']['bar']['baz']['factory'].
 
 
-### `has(string $key)`
+### `has(string $key): bool`
 
 `has('app.name')` checks if the key `name` exists in `app.php`. Think about it between the lines of `array_key_exists()`. (But recursive)
+
+### `setDelimiter(string $delimiter): void`
+
+Maybe you prefer writing `$config->get('app!software!version)` or `$config->get('app->software->version)`?
+
+Simply call `setDelimiter('!')` and go ahead!
+
+### `getDelimiter(): string`
+
+Returns the current delimiter.
+
+### `getConfig(): array`
+
+Returns the raw configuration array.
+
+### `setConfig(array $config): void`
+
+Overwrite the configuration array.
 
 ## Change log
 

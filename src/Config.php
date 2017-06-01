@@ -4,34 +4,20 @@ namespace PascaleBeier\Config;
 
 class Config implements ConfigInterface
 {
-    const DELIMITER = '.';
     /** @var string */
-    protected $path;
+    protected $delimiter = '.';
+
     /** @var array */
     protected $config = [];
 
     /** @inheritdoc */
-    public function __construct($path = __DIR__.'/config/')
+    public function __construct($path)
     {
-        $this->path = $path;
-    }
-
-    /** @inheritdoc */
-    public function load()
-    {
-        foreach (new \FilesystemIterator($this->path) as $file) {
+        foreach (new \FilesystemIterator($path) as $file) {
             if ($file->getExtension() === 'php') {
                 $this->config[$file->getBasename('.php')] = include $file;
             }
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function getConfig()
-    {
-        return $this->config;
     }
 
     /** @inheritdoc */
@@ -55,13 +41,13 @@ class Config implements ConfigInterface
             }
 
             // Remove starting delimiters and spaces
-            $path = ltrim($path, self::DELIMITER);
+            $path = ltrim($path, $this->delimiter);
 
             // Remove ending delimiters, spaces, and wildcards
-            $path = rtrim($path, self::DELIMITER);
+            $path = rtrim($path, $this->delimiter);
 
             // Split the keys by delimiter
-            $keys = explode(self::DELIMITER, $path);
+            $keys = explode($this->delimiter, $path);
         }
 
         do {
@@ -91,4 +77,29 @@ class Config implements ConfigInterface
         // Unable to find the value requested
         return $default;
     }
+
+    /** @inheritdoc */
+    public function setConfig(array $config)
+    {
+        $this->config = $config;
+    }
+
+    /** @inheritdoc */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /** @inheritdoc */
+    public function getDelimiter()
+    {
+        return $this->delimiter;
+    }
+
+    /** @inheritdoc */
+    public function setDelimiter($delimiter)
+    {
+        $this->delimiter = $delimiter;
+    }
+
 }

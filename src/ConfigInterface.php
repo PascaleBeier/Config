@@ -7,8 +7,7 @@ interface ConfigInterface
 
     
     /**
-     * Sets the Config Path to be used for
-     * loading the configuration files into memory.
+     * Load all .php files in the given path into memory.
      *
      * @param string $path path to the config directory, e.g. __DIR__.'/../config/'
      */
@@ -36,10 +35,34 @@ interface ConfigInterface
     public function has($key);
 
     /**
-     * Load all .php files in the given path
-     * (see __construct()) to memory.
+     * Defines the delimiter to be used, defaults to '.'.
+     * This way, you could use any delimiter, for instance ':'.
+     * You would get('foo:bar:baz') then.
      *
+     * @param $delimiter
+     * @return mixed
+     */
+    public function setDelimiter($delimiter);
+
+    /**
+     * Returns the delimiter.
+     *
+     * @return string
+     */
+    public function getDelimiter();
+
+    /**
+     * Overrides the Config array.
+     *
+     * @param array $config
      * @return void
      */
-    public function load();
+    public function setConfig(array $config);
+
+    /**
+     * Returns the config array.
+     *
+     * @return array
+     */
+    public function getConfig();
 }

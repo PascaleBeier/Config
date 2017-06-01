@@ -21,6 +21,27 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+## 2.1.0
+
+### Added
+- new API
+- setDelimiter
+- getDelimiter
+- setConfig
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Nothing
+
+### Removed
+- load()
+- ArrayHelper::class
+
+### Security
+- Nothing
+
 ## 2.0.1
 
 ### Added
@@ -31,7 +52,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 - Nothing
 
 ### Fixed
-- Wrong FQN Namespace in the README, thanks to (/u/yanickl88)[https://www.reddit.com/user/yannickl88]
+- Wrong FQN Namespace in the README, thanks to [/u/yanickl88](https://www.reddit.com/user/yannickl88)
 
 ### Removed
 - Nothing

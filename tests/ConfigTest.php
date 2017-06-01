@@ -19,10 +19,9 @@ class ConfigTest extends TestCase
     public function setUp()
     {
         $this->config = new Config(__DIR__.'/config/');
-        $this->config->load();
     }
 
-    public function testCanLoad()
+    public function testCanConstruct()
     {
         $expected = [
             'app' => [
@@ -64,4 +63,43 @@ class ConfigTest extends TestCase
     {
         $this->assertTrue($this->config->has(self::EXISTING_PATH));
     }
+
+    public function testHasNot()
+    {
+        $this->assertFalse($this->config->has(self::NOT_EXISTING_PATH));
+    }
+
+    public function testCanGetAndSetDelimiter()
+    {
+        $this->config->setDelimiter('!');
+        $this->assertEquals('!', $this->config->getDelimiter());
+    }
+
+    public function testCanGetWithChangedDelimiter()
+    {
+        $this->config->setDelimiter('!');
+        $this->assertEquals(
+            $this->config->get('app!software!version'),
+            self::EXISTING_VALUE
+        );
+    }
+
+    public function testCanGetWithFuzzyDelimiter()
+    {
+        $this->config->setDelimiter('->');
+        $this->assertEquals(
+            $this->config->get('app->software->version'),
+            self::EXISTING_VALUE
+        );
+    }
+
+    public function testCanGetWithWhitespaceDelimiter()
+    {
+        $this->config->setDelimiter(' -> ');
+        $this->assertEquals(
+            $this->config->get('app -> software -> version'),
+            self::EXISTING_VALUE
+        );
+    }
+
 }
