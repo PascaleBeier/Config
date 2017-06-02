@@ -9,6 +9,8 @@
 ![PSR 2][ico-psr2]
 ![PSR 4][ico-psr4]
 
+![An example](twitter.PNG)
+
 Simple Configuration. If you think Symfony/YAML is an overkill or you prefer using .php files. 
 Organize your Application Configuration like `config/app.php`.
 
