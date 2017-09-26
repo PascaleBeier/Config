@@ -1,21 +1,36 @@
 language: php
 
-php:
-  - 5.6
-  - 7.0
-  - 7.1
+env:
+  global:
+    - setup=stable
 
-# This triggers builds to run on the new TravisCI infrastructure.
-# See: http://docs.travis-ci.com/user/workers/container-based-infrastructure/
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.0.21
+    - php: 7.0.21
+      env: setup=lowest
+    - php: 7.1
+    - php: 7.1
+      env: setup=lowest
+    - php: 7.2
+    - php: 7.2
+      env: setup=lowest
+
 sudo: false
 
-## Cache composer
 cache:
   directories:
     - $HOME/.composer/cache
 
-before_script:
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
+before_install:
+  - travis_retry composer self-update
+
+install:
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
+
+script: vendor/bin/phpunit
 
 script:
   - vendor/bin/phpcs --standard=psr2 src/
@@ -23,7 +38,7 @@ script:
 
 after_script:
   - |
-    if [[ "$TRAVIS_PHP_VERSION" != 'hhvm' && "$TRAVIS_PHP_VERSION" != '7.0' ]]; then
+    if [[ "$TRAVIS_PHP_VERSION" != '7.2' ]]; then
       wget https://scrutinizer-ci.com/ocular.phar
       php ocular.phar code-coverage:upload --format=php-clover coverage.clover
     fi

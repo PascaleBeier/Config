@@ -14,14 +14,14 @@
 Simple Configuration. If you think Symfony/YAML is an overkill or you prefer using .php files. 
 Organize your Application Configuration like `config/app.php`.
 
-Tested for PHP 5.6, PHP 7.0 and PHP 7.1, implementing PSR-2 and PSR-4.
+Tested for PHP 7.0, PHP 7.1 and PHP 7.2, implementing PSR-2 and PSR-4.
 
 ## Install
 
 Via Composer
 
 ``` bash
-$ composer require pascaleBeier/config
+$ composer require pascalebeier/config
 ```
 
 ## Example
@@ -41,7 +41,7 @@ return [
 
 ```
 
-``` php
+```php
 // somewhere.php
 // In the real world you would want to bind a configured Config Class Instance to your container or singleton
 
@@ -49,12 +49,12 @@ return [
 
 $config = new PascaleBeier\Config\Config(__DIR__.'/../config/');
 
-echo $config->get('app.url'); // 'awesome.app'
-echo $config->get('app.url', 'production.app'); // 'awesome.app'
-echo $config->get('app.name', 'Awesome App'); // 'Awesome App'
+$config->get('app.url'); // 'awesome.app'
+$config->get('app.url', 'production.app'); // 'awesome.app'
+$config->get('app.name', 'Awesome App'); // 'Awesome App'
 
-echo $config->has('app.bla'); // false
-echo $config->has('app.url'); // true
+$config->has('app.bla'); // false
+$config->has('app.url'); // true
 ```
 
 You can even use whitespace or change the '.' delimiter to something else! Read the API below.
@@ -153,19 +153,6 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 $ composer test
 ```
 
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
-
-## Security
-
-If you discover any security related issues, please email mail@pascalebeier.de instead of using the issue tracker.
-
-## Credits
-
-- [Pascale Beier][link-author]
-- [All Contributors][link-contributors]
-
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
@@ -184,5 +171,3 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-scrutinizer]: https://scrutinizer-ci.com/g/PascaleBeier/Config/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/PascaleBeier/Config
 [link-downloads]: https://packagist.org/packages/PascaleBeier/Config
-[link-author]: https://github.com/PascaleBeier
-[link-contributors]: ../../contributors

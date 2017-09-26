@@ -2,24 +2,19 @@
 
 All Notable changes to `Config` will be documented in this file.
 
-Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
+## 3.0.0
 
-## NEXT - Unreleased
+Dropping PHP 5.6 support for these fancy type hints.
+Adding PHP 7.2 tests.
+
+Targeting a breaking change because of the interface changes.
 
 ### Added
-- Nothing
-
-### Deprecated
-- Nothing
-
-### Fixed
-- Nothing
+- Type Hinting
+- PHP 7.2
 
 ### Removed
-- Nothing
-
-### Security
-- Nothing
+- PHP 5.6
 
 ## 2.1.0
 

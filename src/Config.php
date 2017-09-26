@@ -11,7 +11,7 @@ class Config implements ConfigInterface
     protected $config = [];
 
     /** @inheritdoc */
-    public function __construct($path)
+    public function __construct(string $path)
     {
         foreach (new \FilesystemIterator($path) as $file) {
             if ($file->getExtension() === 'php') {
@@ -21,13 +21,13 @@ class Config implements ConfigInterface
     }
 
     /** @inheritdoc */
-    public function has($key)
+    public function has(string $key)
     {
         return $this->get($key) !== null;
     }
 
     /** @inheritdoc */
-    public function get($path, $default = null)
+    public function get(string $path, $default = null)
     {
         $array = $this->config;
 
@@ -85,19 +85,19 @@ class Config implements ConfigInterface
     }
 
     /** @inheritdoc */
-    public function getConfig()
+    public function getConfig(): array
     {
         return $this->config;
     }
 
     /** @inheritdoc */
-    public function getDelimiter()
+    public function getDelimiter(): string
     {
         return $this->delimiter;
     }
 
     /** @inheritdoc */
-    public function setDelimiter($delimiter)
+    public function setDelimiter(string $delimiter)
     {
         $this->delimiter = $delimiter;
     }
