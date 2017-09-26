@@ -2,6 +2,14 @@
 
 All Notable changes to `Config` will be documented in this file.
 
+## 3.0.1
+
+### Fixed
+- Tests
+
+### Removed
+- Obsolete files
+
 ## 3.0.0
 
 Dropping PHP 5.6 support for these fancy type hints.
